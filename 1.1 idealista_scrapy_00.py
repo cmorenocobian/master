@@ -23,20 +23,36 @@ class CommercialSale(scrapy.Spider):
     base_url="https://www.idealista.com/buscar/"
     # custom headers
     # inspeccionar página, en Network ->28001 ->Request headers, selleccionar desde accept hasta final
-    headers= {
-        "accept": "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9",
-        "accept-encoding": "gzip, deflate, br",
-        "accept-language": "es-ES,es;q=0.9,en;q=0.8,en-GB;q=0.7",
-        "cache-control": "max-age=0",
-        "referer": "https://www.idealista.com/",
-        "sec-ch-ua": '"Chromium";v="92", " Not A;Brand";v="99", "Google Chrome";v="92"',
-        "sec-ch-ua-mobile": "?0",
-        "sec-fetch-dest": "document",
-        "sec-fetch-mode": "navigate",
-        "sec-fetch-site": "same-origin",
-        "sec-fetch-user": "?1",
-        "upgrade-insecure-requests": "1",
-        "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/92.0.4515.159 Safari/537.36"
+    # headers= {
+    #     "accept": "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9",
+    #     "accept-encoding": "gzip, deflate, br",
+    #     "accept-language": "es-ES,es;q=0.9,en;q=0.8,en-GB;q=0.7",
+    #     "cache-control": "max-age=0",
+    #     "referer": "https://www.idealista.com/",
+    #     "sec-ch-ua": '"Chromium";v="92", " Not A;Brand";v="99", "Google Chrome";v="92"',
+    #     "sec-ch-ua-mobile": "?0",
+    #     "sec-fetch-dest": "document",
+    #     "sec-fetch-mode": "navigate",
+    #     "sec-fetch-site": "same-origin",
+    #     "sec-fetch-user": "?1",
+    #     "upgrade-insecure-requests": "1",
+    #     "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/92.0.4515.159 Safari/537.36"
+    #     }
+    
+    headers = {
+        'accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9',
+        'accept-encoding': 'gzip, deflate, br',
+        'accept-language': 'es-ES,es;q=0.9,en;q=0.8,en-GB;q=0.7',
+        'cookie': 'atuserid=%7B%22name%22%3A%22atuserid%22%2C%22val%22%3A%222c6aef2e-060a-4139-a1bc-c9cbf98569d6%22%2C%22options%22%3A%7B%22end%22%3A%222022-09-04T06%3A24%3A47.513Z%22%2C%22path%22%3A%22%2F%22%7D%7D; atidvisitor=%7B%22name%22%3A%22atidvisitor%22%2C%22val%22%3A%7B%22vrn%22%3A%22-582065-%22%7D%2C%22options%22%3A%7B%22path%22%3A%22%2F%22%2C%22session%22%3A15724800%2C%22end%22%3A15724800%7D%7D; didomi_token=eyJ1c2VyX2lkIjoiMTdiMGFhZjktOTc0Ni02M2VjLTg0M2EtNzhlZWFiYmZlZTYyIiwiY3JlYXRlZCI6IjIwMjEtMDgtMDNUMDY6MjU6MDAuMTk5WiIsInVwZGF0ZWQiOiIyMDIxLTA4LTAzVDA2OjI1OjAwLjE5OVoiLCJ2ZW5kb3JzIjp7ImVuYWJsZWQiOlsiZ29vZ2xlIiwiYzptaXhwYW5lbCIsImM6YWJ0YXN0eS1MTGtFQ0NqOCIsImM6aG90amFyIiwiYzp5YW5kZXhtZXRyaWNzIiwiYzpiZWFtZXItSDd0cjdIaXgiLCJjOnRlYWxpdW1jby1EVkRDZDhaUCIsImM6aWRlYWxpc3RhLUx6dEJlcUUzIiwiYzppZGVhbGlzdGEtZmVSRWplMmMiXX0sInB1cnBvc2VzIjp7ImVuYWJsZWQiOlsiZ2VvbG9jYXRpb25fZGF0YSJdfSwidmVyc2lvbiI6MiwiYWMiOiJBRm1BQ0FGay5BQUFBIn0=; euconsent-v2=CPKWMxaPKWMxaAHABBENBlCoAP_AAAAAAAAAF5wBAAIAAtAC2AvMAAABAaADAAEEEiUAGAAIIJFIAMAAQQSIQAYAAggkOgAwABBBIJABgACCCQyADAAEEEhUAGAAIIJA.f_gAAAAAAAAA; _gcl_au=1.1.1081101764.1627975405; _hjid=5ef452cb-3f22-4884-b8f8-a4aab5760148; ABTasty=uid=e0vmxdz26xtww1zt&fst=1627971902201&pst=1628254033103&cst=1628438960430&ns=8&pvt=16&pvis=1&th=; cookieSearch-1="/alquiler-locales/madrid-madrid/:1630486631143"; userUUID=58d66eca-7026-47bf-a22e-bd1ecea6a96a; SESSION=ef256b4791da9513~02bbfc86-60ce-4f3f-9150-8a8e5765fc39; contact02bbfc86-60ce-4f3f-9150-8a8e5765fc39="{"email":null,"phone":null,"phonePrefix":null,"friendEmails":null,"name":null,"message":null,"message2Friends":null,"maxNumberContactsAllow":10,"defaultMessage":true}"; send02bbfc86-60ce-4f3f-9150-8a8e5765fc39="{"friendsEmail":null,"email":null,"message":null}"; utag_main=v_id:017b0aaf992d001e3a786adac8a104073003b06b00978$_sn:21$_se:6$_ss:0$_st:1632818755196$dc_visit:7$ses_id:1632816850836%3Bexp-session$_pn:5%3Bexp-session$_prevVtSource:portalSites%3Bexp-1632820450846$_prevVtCampaignCode:%3Bexp-1632820450846$_prevVtDomainReferrer:idealista.com%3Bexp-1632820450846$_prevVtSubdomaninReferrer:www.idealista.com%3Bexp-1632820450846$_prevVtUrlReferrer:https%3A%2F%2Fwww.idealista.com%2F%3Bexp-1632820450846$_prevVtCampaignLinkName:%3Bexp-1632820450846$_prevVtCampaignName:%3Bexp-1632820450846$_prevVtRecommendationId:%3Bexp-1632820450846$_prevCompletePageName:12%3A%3Adetail%3A%3A%3A%3A%3A%3Ahome%3Bexp-1632820555283$_prevLevel2:12%3Bexp-1632820555283$_prevAdId:93480336%3Bexp-1632820555285$_prevAdOriginTypeRecommended:undefined%3Bexp-1632820450851$dc_event:2%3Bexp-session$dc_region:eu-central-1%3Bexp-session; cto_bundle=ysuibF9YS3dSenRrY2NGSmg5aDZWOCUyRnZCZVRIdjhmbXo1SkpEcFVvSyUyQndHRUFjaDIwbTYxemxFdkhmbjNNJTJCN2REMiUyQkR5emhxRXp1ZDJtUk1tUTV6eXBIb3pIRkNwTXR5aDVneWJMcVNTbjl4SHI4JTJCQkxNMUdGaG5FdXJ3aGpRN3dQV1VYNjlycGZuOE1zJTJCeW15cGd6WGN2MHclM0QlM0Q; datadome=7E3WMHVya_1NI6vpSs2RZbRAo8KpSE~0aR5LIhBi3rJV8lRoJ4YTWysF0V2RFgkNDWm~QpfmF42sGu~gEczvmfp8G-jFE~x15XKrACFfHj',
+        'referer': 'https://www.idealista.com/buscar/alquiler-locales/28001/',
+        'sec-ch-ua': '"Chromium";v="94", "Google Chrome";v="94", ";Not A Brand";v="99"',
+        'sec-ch-ua-mobile': '?0',
+        'sec-ch-ua-platform': '"Windows"',
+        'sec-fetch-dest': 'document',
+        'sec-fetch-mode': 'navigate',
+        'sec-fetch-site': 'same-origin',
+        'upgrade-insecure-requests': '1',
+        'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/94.0.4606.61 Safari/537.36',
         }
     
     # Override Custom Settings
@@ -129,7 +145,7 @@ class CommercialSale(scrapy.Spider):
 
             # Increment current postcode counter
             count += 1
-            break
+            # break
 
     # Parse links
     def parse_links(self, response):
