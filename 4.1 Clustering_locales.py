@@ -66,17 +66,54 @@ kclusters = 6
 # k-means clustering
 kmeans = KMeans(n_clusters=kclusters, random_state=0).fit(df_norm)
 idealista.insert(0, 'cluster', kmeans.labels_)
+locales.insert(0, 'cluster', kmeans.labels_)
+
+del cluster, df, df_norm, error_cost, i, tipos, X, kclusters
+
+from pyproj import Proj
+class conversion:
+    """Función para pasar de latitud y longitud a UTM y viceversa"""
+    
+    def __init__(self, zone=30):
+        self.zone = zone
+    
+    def latlon_utm(self, lat, lon):
+        """Latitude and longitude to UTM"""
+        myProj = Proj("+proj=utm +zone="+str(self.zone)+",\
+        +north +ellps=WGS84 +datum=WGS84 +units=m +no_defs") #north for north hemisphere
+        UTMx, UTMy = myProj(lon, lat)
+        return UTMx, UTMy
+    
+    def utm_latlon(self, x, y):
+        """UTM to latitude and longitude"""
+        myProj = Proj("+proj=utm +zone="+\
+        str(self.zone)+", +north +ellps=WGS84 +datum=WGS84 +units=m +no_defs")
+        lon, lat = myProj(x, y,inverse=True)
+        return lat, lon
+
+# comprobación de funcionamiento de la clase
+p = conversion()
+
+locales.loc[:, ['x', 'y']] = 0.0
+for i in range(locales.shape[0]):
+    x, y =  p.latlon_utm(locales.at[i, 'latitude'], locales.at[i, 'longitude'])
+    locales.at[i, 'y'] = y
+    locales.at[i, 'x'] = x
+
+locales2 = locales.drop(['longitude', 'latitude', 'CP' ], axis = 1).groupby('cluster').mean().reset_index().astype(int)
+locales2.drop(['x', 'y'], axis = 1).to_pickle('clustering.pkl')
+
+del x, y, locales2, i, locales
 
 import json
 with open('data_idealista_cluster.json', 'w') as fp:
     json.dump(idealista.to_dict('records'), fp)
 
-del cluster, df, df_norm, error_cost, i, locales, tipos, X, kclusters
-
 
 # =============================================================================
 # VISUALIZACION
 # =============================================================================
+
 # Matplotlib and associated plotting modules
 import matplotlib.cm as cm
 import matplotlib.colors as colors
